@@ -9,7 +9,7 @@ public abstract class Items {
     private String slotIdentifier;
     private int quantity;
 
-    public Items(String name, BigDecimal price, String slotIdentifier, int quantity) {
+    public Items(String slotIdentifier, String name, BigDecimal price, int quantity) {
         this.name = name;
         this.price = price;
         this.slotIdentifier = slotIdentifier;

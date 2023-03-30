@@ -1,14 +1,18 @@
 package com.techelevator.application;
 
 import com.techelevator.Logger;
-import com.techelevator.models.Items;
+import com.techelevator.models.*;
+import com.techelevator.models.Munchy;
 import com.techelevator.ui.UserInput;
 import com.techelevator.ui.UserOutput;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class VendingMachine {
 
@@ -70,9 +74,35 @@ public class VendingMachine {
     }
 
 
-    private void readInFromFile() {
+    public void readInFromFile() {
         File file = new File("catering.csv");
- //       logger.write(LocalDateTime.now() + " - reading in the file");
+        try (Scanner fileScanner = new Scanner(file)){
+            while (fileScanner.hasNextLine());
+            String items = fileScanner.nextLine();
+            String[] itemProperties = items.split(",");
+
+            String slotIdentifier = itemProperties[0];
+            String name = itemProperties[1];
+            BigDecimal price = new BigDecimal(itemProperties[2]);
+            String type = itemProperties[3];
+
+            if (type.equals("Munchy")) {
+                Munchy munchy = new Munchy(name, price, slotIdentifier, 6);
+            } else if (type.equals("Drinks")){
+                Drinks drinks = new Drinks(name,price,slotIdentifier, 6);
+            } else if(type.equals("Gum")) {
+                Gum gum = new Gum(name, price, slotIdentifier, 6);
+            } else if (type.equals("Candy")){
+                Candy candy = new Candy(name, price, slotIdentifier, 6);
+            }
+
+
+
+        } catch (FileNotFoundException e) {
+            userOutput.displayMessage("File not found -- please try again");
+            System.exit(0);
+        }
+        //       logger.write(LocalDateTime.now() + " - reading in the file");
     }
     
 }
