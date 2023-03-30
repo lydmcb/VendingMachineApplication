@@ -46,5 +46,44 @@ public class UserInput
 
     }
 
+    public String getPurchase(){
+
+        System.out.println("(M) Feed Money");
+        System.out.println("(S) Select Item");
+        System.out.println("(F) Finish Transaction");
+        System.out.println();
+       String cashAmount = "0.00";
+        BigDecimal enteredCash = new BigDecimal(cashAmount);
+        System.out.print("Current Money Provided: $" + String.valueOf(enteredCash));
+
+        System.out.print("Please select option: ");
+       String newOption = scanner.nextLine();
+       String purchaseOption = newOption.trim().toLowerCase();
+
+       if (purchaseOption.equals("m")){
+           return "feed";
+        } else if (purchaseOption.equals("s")) {
+           return "select";
+       } else {
+           return "finish";
+       }
+
+        //Check when able to test to see if "y" will loop back through
+ /*       if (purchaseOption.equals("m")){
+            while(true){
+                System.out.print("Please enter cash ($1, $5, $10, $20 accepted): ");
+                cashAmount = scanner.nextLine();
+                System.out.print("Would you like to add anything else? (Y/N): ");
+                String response = scanner.nextLine().toLowerCase();
+                if (response.equals("n")){
+                    return cashAmount;
+                    break;
+                }
+
+            }
+*/
+    }
+
+
     
 }

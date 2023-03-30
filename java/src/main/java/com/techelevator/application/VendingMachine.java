@@ -27,13 +27,8 @@ public class VendingMachine {
     }
 
     public void run() {
-        readInFromFile();
+        readInFromFile(); // Will read in from method below
 
-
-    }
-
-
-    {
         while(true)
         {
             userOutput.displayHomeScreen();
@@ -42,9 +37,15 @@ public class VendingMachine {
             if(choice.equals("display"))
             {
                 // display the vending machine slots
+                userOutput.displayMessage("Slot Identifier    Name    Price    Quantity");
+                for(Items item : ItemsList){
+                    userOutput.displayMessage(item.getSlotIdentifier() + "  " + item.getName() + "  " +
+                            item.getPrice() + "  " + item.getQuantity());
+                }
             }
             else if(choice.equals("purchase"))
             {
+                makePurchase();
                 // make a purchase
             }
             else if(choice.equals("exit"))
@@ -54,10 +55,24 @@ public class VendingMachine {
             }
         }
     }
+    public void makePurchase(){
+        while(true){
+            String choice = userInput.getPurchase();
+            if(choice.equals("feed")){
+                //feed money
+            } else if (choice.equals("select")){
+                //select item
+            } else if (choice.equals("finish")){
+                // finish
+                break;
+            }
+        }
+    }
+
 
     private void readInFromFile() {
-        File file = new File("");
-        logger.write(LocalDateTime.now() + " - reading in the file");
+        File file = new File("catering.csv");
+ //       logger.write(LocalDateTime.now() + " - reading in the file");
     }
     
 }
