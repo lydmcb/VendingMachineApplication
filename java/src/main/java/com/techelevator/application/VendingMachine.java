@@ -26,7 +26,8 @@ public class VendingMachine {
         userInput = new UserInput();
         userOutput = new UserOutput();
         ItemsList = new ArrayList<>();
-        logger = new Logger();
+        logger = new Logger("audit.txt");
+
 
     }
 
@@ -73,9 +74,10 @@ public class VendingMachine {
         }
     }
 
-
     public void readInFromFile() {
         File file = new File("catering.csv");
+        logger.write(LocalDateTime.now() + " - reading in the file");
+
         try (Scanner fileScanner = new Scanner(file)){
             while (fileScanner.hasNextLine());
             String items = fileScanner.nextLine();
@@ -87,13 +89,13 @@ public class VendingMachine {
             String type = itemProperties[3];
 
             if (type.equals("Munchy")) {
-                Munchy munchy = new Munchy(name, price, slotIdentifier, 6);
+                Munchy munchy = new Munchy(slotIdentifier, name, price, 6);
             } else if (type.equals("Drinks")){
-                Drinks drinks = new Drinks(name,price,slotIdentifier, 6);
+                Drinks drinks = new Drinks(slotIdentifier, name, price, 6);
             } else if(type.equals("Gum")) {
-                Gum gum = new Gum(name, price, slotIdentifier, 6);
+                Gum gum = new Gum(slotIdentifier, name, price, 6);
             } else if (type.equals("Candy")){
-                Candy candy = new Candy(name, price, slotIdentifier, 6);
+                Candy candy = new Candy(slotIdentifier, name, price, 6);
             }
 
 
@@ -102,7 +104,7 @@ public class VendingMachine {
             userOutput.displayMessage("File not found -- please try again");
             System.exit(0);
         }
-        //       logger.write(LocalDateTime.now() + " - reading in the file");
+
     }
     
 }
