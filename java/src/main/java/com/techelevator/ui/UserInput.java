@@ -69,7 +69,9 @@ public class UserInput
            return "finish";
        }
 
-        //Check when able to test to see if "y" will loop back through
+       public String feedMoney();
+
+
  /*       if (purchaseOption.equals("m")){
             while(true){
                 System.out.print("Please enter cash ($1, $5, $10, $20 accepted): ");

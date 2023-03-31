@@ -60,6 +60,7 @@ public class VendingMachine {
             String choice = userInput.getPurchase();
             if (choice.equals("feed")) {
                 //feed money
+
             } else if (choice.equals("select")) {
                 //select item
             } else if (choice.equals("finish")) {
