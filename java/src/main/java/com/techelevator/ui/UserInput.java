@@ -55,6 +55,7 @@ public class UserInput
        String cashAmount = "0.00";
         BigDecimal enteredCash = new BigDecimal(cashAmount);
         System.out.print("Current Money Provided: $" + String.valueOf(enteredCash));
+        System.out.println();
 
         System.out.print("Please select option: ");
        String newOption = scanner.nextLine();
