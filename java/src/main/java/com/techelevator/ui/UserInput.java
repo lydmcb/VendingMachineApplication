@@ -1,6 +1,8 @@
 package com.techelevator.ui;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -8,12 +10,10 @@ import java.util.Scanner;
  * 
  * Dependencies: None
  */
-public class UserInput
-{
+public class UserInput {
     private static Scanner scanner = new Scanner(System.in);
 
-    public  String getHomeScreenOption()
-    {
+    public String getHomeScreenOption() {
         System.out.println("What would you like to do?");
         System.out.println();
 
@@ -27,42 +27,34 @@ public class UserInput
         String selectedOption = scanner.nextLine();
         String option = selectedOption.trim().toLowerCase();
 
-        if (option.equals("d"))
-        {
+        if (option.equals("d")) {
             return "display";
-        }
-        else if (option.equals("p"))
-        {
+        } else if (option.equals("p")) {
             return "purchase";
-        }
-        else if (option.equals("e"))
-        {
+        } else if (option.equals("e")) {
             return "exit";
-        }
-        else
-        {
+        } else {
             return "";
         }
 
     }
 
-    public String getPurchase(){
+    public String getPurchase() {
 
         System.out.println("(M) Feed Money");
         System.out.println("(S) Select Item");
         System.out.println("(F) Finish Transaction");
         System.out.println();
-       String cashAmount = "0.00";
-        BigDecimal enteredCash = new BigDecimal(cashAmount);
-        System.out.print("Current Money Provided: $" + String.valueOf(enteredCash));
+
+        System.out.print("Current Money Provided: $" + cashAmount);
         System.out.println();
 
         System.out.print("Please select option: ");
-       String newOption = scanner.nextLine();
-       String purchaseOption = newOption.trim().toLowerCase();
+        String newOption = scanner.nextLine();
+        String purchaseOption = newOption.trim().toLowerCase();
 
-       if (purchaseOption.equals("m")){
-           return "feed";
+        if (purchaseOption.equals("m")) {
+            return "feed";
         } else if (purchaseOption.equals("s")) {
            return "select";
        } else {
@@ -82,11 +74,39 @@ public class UserInput
                     return cashAmount;
                     break;
                 }
+=======
+            return "select";
+        } else {
+            return "finish";
+        }
+    }
+>>>>>>> 8ab87313f1003952e7ba06c617ee8fb664e72a98
 
+    public static BigDecimal cashAmount = new BigDecimal(0.0);
+    String enteredMoney = "0.00";
+
+    public String getMoney() {
+        while (true) {
+            System.out.print("Please enter cash ($1, $5, $10, $20 accepted): ");
+            enteredMoney = scanner.nextLine();
+            BigDecimal eM = new BigDecimal(enteredMoney);
+            cashAmount = cashAmount.add(eM);
+            System.out.print("Would you like to add anything else? (Y/N): ");
+            String response = scanner.nextLine().toUpperCase();
+            if (response.equals("y")) {
+                continue;
+            } else {
+
+                return String.valueOf(cashAmount);
             }
-*/
+        }
     }
 
 
-    
+    public String selectItem() {
+        System.out.print("Please select an item from above: ");
+        String selection = scanner.nextLine().toUpperCase();
+        return selection;
+    }
 }
+

@@ -18,7 +18,7 @@ public class VendingMachine {
 
     private UserOutput userOutput;
     private UserInput userInput;
-    private List<Items> itemsList;
+    public static List<Items> itemsList;
     private Logger logger;
 
 
@@ -40,11 +40,8 @@ public class VendingMachine {
 
             if (choice.equals("display")) {
                 // display the vending machine slots
-                userOutput.displayMessage("Slot Identifier    Name    Price    Quantity");
-                for (Items item : itemsList) {
-                    userOutput.displayMessage(item.getSlotIdentifier() + "  " + item.getName() + "  " +
-                            item.getPrice() + "  " + item.getQuantity());
-                }
+                userOutput.displayItemList();
+
             } else if (choice.equals("purchase")) {
                 makePurchase();
                 // make a purchase
@@ -59,10 +56,16 @@ public class VendingMachine {
         while (true) {
             String choice = userInput.getPurchase();
             if (choice.equals("feed")) {
+
                 //feed money
+
+              String moneyToSpend = userInput.getMoney();
 
             } else if (choice.equals("select")) {
                 //select item
+               userOutput.displayItemList();
+                String selectedItem = userInput.selectItem();
+                
             } else if (choice.equals("finish")) {
                 // finish
                 break;
@@ -103,5 +106,9 @@ public class VendingMachine {
             System.exit(0);
         }
 
+    }
+
+    public static void getItemsList(List<Items> itemsList) {
+        VendingMachine.itemsList = itemsList;
     }
 }
