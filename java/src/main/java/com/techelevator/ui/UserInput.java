@@ -1,9 +1,11 @@
 package com.techelevator.ui;
 
+import com.techelevator.models.Items;
+
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
+
+import static com.techelevator.application.VendingMachine.itemsList;
 
 /**
  * Responsibilities: This class should handle receiving ALL input from the User
@@ -62,7 +64,7 @@ public class UserInput {
         }
     }
 
-    public static BigDecimal cashAmount = new BigDecimal(0.0);
+    public BigDecimal cashAmount = new BigDecimal(0.0);
     String enteredMoney = "0.00";
 
     public String getMoney() {
@@ -72,7 +74,7 @@ public class UserInput {
             BigDecimal eM = new BigDecimal(enteredMoney);
             cashAmount = cashAmount.add(eM);
             System.out.print("Would you like to add anything else? (Y/N): ");
-            String response = scanner.nextLine().toUpperCase();
+            String response = scanner.nextLine().toLowerCase();
             if (response.equals("y")) {
                 continue;
             } else {
@@ -86,7 +88,19 @@ public class UserInput {
     public String selectItem() {
         System.out.print("Please select an item from above: ");
         String selection = scanner.nextLine().toUpperCase();
+        int i = 0;
+        for (Items items : itemsList) {
+            while (selection.equals(items.getSlotIdentifier())) {
+                if (items.getQuantity() <= 0) {
+                    selection = "Item no longer available";
+               } else if (items.getPrice().compareTo(cashAmount) == 1) {
+                    selection = "Not enough funds";
+                } else {
+                    selection = (itemsList.get(i).getName());
+                    cashAmount.subtract(itemsList.get(i).getPrice());
+                }
+            }
+        }
         return selection;
     }
 }
-

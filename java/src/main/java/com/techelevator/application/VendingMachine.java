@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class VendingMachine {
@@ -20,13 +21,14 @@ public class VendingMachine {
     private UserInput userInput;
     public static List<Items> itemsList;
     private Logger logger;
-
+    public static List<Items> shoppingCart;
 
     public VendingMachine() {
         userInput = new UserInput();
         userOutput = new UserOutput();
         itemsList = new ArrayList<>();
         logger = new Logger("audit.txt");
+        shoppingCart = new ArrayList<>();
 
 
     }
@@ -56,18 +58,19 @@ public class VendingMachine {
         while (true) {
             String choice = userInput.getPurchase();
             if (choice.equals("feed")) {
-              String moneyToSpend = userInput.getMoney();
+                String moneyToSpend = userInput.getMoney();
+                BigDecimal money = new BigDecimal(moneyToSpend);
             } else if (choice.equals("select")) {
                 //select item
-               userOutput.displayItemList();
+                userOutput.displayItemList();
                 String selectedItem = userInput.selectItem();
-                
+                userOutput.displayMessage("You have chosen " + selectedItem);
             } else if (choice.equals("finish")) {
-                // finish
-                break;
+                    // finish
+                    break;
+                }
             }
         }
-    }
 
     public void readInFromFile() {
         File file = new File("catering1.csv");
@@ -84,13 +87,13 @@ public class VendingMachine {
                 String type = itemProperties[3];
 
                 if (type.equals("Munchy")) {
-                    itemsList.add(new Munchy(slotIdentifier, name, price, 6));
+                    itemsList.add(new Munchy(slotIdentifier, name, price, 6,type));
                 } else if (type.equals("Drinks")) {
-                    itemsList.add(new Drinks(slotIdentifier, name, price, 6));
+                    itemsList.add(new Drinks(slotIdentifier, name, price, 6, type));
                 } else if (type.equals("Gum")) {
-                    itemsList.add(new Gum(slotIdentifier, name, price, 6));
+                    itemsList.add(new Gum(slotIdentifier, name, price, 6, type));
                 } else if (type.equals("Candy")) {
-                    itemsList.add(new Candy(slotIdentifier, name, price, 6));
+                    itemsList.add(new Candy(slotIdentifier, name, price, 6, type));
                 }
 
 
@@ -104,7 +107,7 @@ public class VendingMachine {
 
     }
 
-    public static void getItemsList(List<Items> itemsList) {
-        VendingMachine.itemsList = itemsList;
-    }
-}
+            public static void getItemsList (List < Items > itemsList) {
+                VendingMachine.itemsList = itemsList;
+            }
+        }
