@@ -8,12 +8,14 @@ public abstract class Items {
     private BigDecimal price;
     private String slotIdentifier;
     private int quantity;
+    private String type;
 
-    public Items(String slotIdentifier, String name, BigDecimal price, int quantity) {
+    public Items(String slotIdentifier, String name, BigDecimal price, int quantity, String type) {
         this.name = name;
         this.price = price;
         this.slotIdentifier = slotIdentifier;
         this.quantity = quantity;
+        this.type = type;
     }
 
     public String getName() {

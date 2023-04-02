@@ -39,6 +39,21 @@ public class UserOutput {
         }
         System.out.println();
     }
+
+    public void displayMuchy(){
+        System.out.println("Munchy, Munchy, so Good! ");
+    }
+    public void displayCandy(){
+        System.out.println("Sugar, Sugar, so Sweet! ");
+    }
+    public void displayDrinks(){
+        System.out.println("Drinky, Drinky, Slurp Slurp! ");
+    }
+    public void displayGum(){
+        System.out.println("Chewy, Chewy, Lots O Bubbles! ");
+    }
+
+
 }
 
 
