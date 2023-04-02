@@ -58,31 +58,11 @@ public class UserInput {
         if (purchaseOption.equals("m")) {
             return "feed";
         } else if (purchaseOption.equals("s")) {
-           return "select";
-       } else {
-           return "finish";
-       }
-
-       public String feedMoney();
-
-
- /*       if (purchaseOption.equals("m")){
-            while(true){
-                System.out.print("Please enter cash ($1, $5, $10, $20 accepted): ");
-                cashAmount = scanner.nextLine();
-                System.out.print("Would you like to add anything else? (Y/N): ");
-                String response = scanner.nextLine().toLowerCase();
-                if (response.equals("n")){
-                    return cashAmount;
-                    break;
-                }
-=======
             return "select";
         } else {
             return "finish";
         }
     }
->>>>>>> 8ab87313f1003952e7ba06c617ee8fb664e72a98
 
     public BigDecimal cashAmount = new BigDecimal(0.0);
     String enteredMoney = "0.00";
@@ -117,7 +97,6 @@ public class UserInput {
                     selection = "Not enough funds";
                 } else {
                     selection = (itemsList.get(i).getName());
-                    cashAmount.subtract(itemsList.get(i).getPrice());
                 }
             }
         }
