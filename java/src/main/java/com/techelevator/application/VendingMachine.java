@@ -58,8 +58,16 @@ public class VendingMachine {
         while (true) {
             String choice = userInput.getPurchase();
             if (choice.equals("feed")) {
+<<<<<<< HEAD
                 String moneyToSpend = userInput.getMoney();
                 BigDecimal money = new BigDecimal(moneyToSpend);
+=======
+
+                //feed money
+
+              String moneyToSpend = userInput.getMoney();
+
+>>>>>>> e4b56e6aa1702de23bebf554595834bb643d1ae4
             } else if (choice.equals("select")) {
                 //select item
                 userOutput.displayItemList();
