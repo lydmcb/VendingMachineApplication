@@ -2,7 +2,7 @@ package com.techelevator.models;
 
 import java.math.BigDecimal;
 
-public abstract class Items {
+public abstract class Items implements Dispensable{
 
     private String name;
     private BigDecimal price;
@@ -10,12 +10,14 @@ public abstract class Items {
     private int quantity;
     private String type;
 
+
     public Items(String slotIdentifier, String name, BigDecimal price, int quantity, String type) {
         this.name = name;
         this.price = price;
         this.slotIdentifier = slotIdentifier;
         this.quantity = quantity;
         this.type = type;
+
     }
 
     public String getName() {
@@ -49,4 +51,20 @@ public abstract class Items {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    @Override
+    public String getMessage() {
+        return null;
+    }
 }
+
+
