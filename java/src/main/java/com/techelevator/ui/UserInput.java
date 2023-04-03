@@ -84,23 +84,49 @@ public class UserInput {
         }
     }
 
+    String selection;
+    String message;
+    int quantity;
 
     public String selectItem() {
         System.out.print("Please select an item from above: ");
-        String selection = scanner.nextLine().toUpperCase();
-        int i = 0;
+        selection = scanner.nextLine().toUpperCase();
+
         for (Items items : itemsList) {
             while (selection.equals(items.getSlotIdentifier())) {
                 if (items.getQuantity() <= 0) {
                     selection = "Item no longer available";
-               } else if (items.getPrice().compareTo(cashAmount) == 1) {
+                } else if (items.getPrice().compareTo(cashAmount) == 1) {
                     selection = "Not enough funds";
                 } else {
-                    selection = (itemsList.get(i).getName());
-                    cashAmount.subtract(itemsList.get(i).getPrice());
+                    selection = items.getName();
+                    cashAmount = cashAmount.subtract(items.getPrice());
+                    message = items.getMessage();
+                    quantity = items.getQuantity();
+                    quantity--;
+                    items.setQuantity(quantity);
                 }
             }
         }
-        return selection;
+        return message + "!  You have selected " + selection + ", your remaining money is " + cashAmount;
+    }
+
+    public void returnChange() {
+
+        double dblValue = cashAmount.doubleValue();
+        double[] change = new double[]{(1.00), (0.25), (0.10), (0.05)};
+        String[] currency = new String[]{"Dollars", "Quarters", "Dimes", "Nickles"};
+        for (int i = 0; i < change.length; i++) {
+            if (dblValue > 0) {
+                int counter;
+
+                counter = (int) ((int) dblValue / change[i]);
+                dblValue -= (double) (change[i] * counter);
+
+
+                System.out.println("Your Change is: " + counter + " " + currency[i]);
+            }
+        }
+
     }
 }
