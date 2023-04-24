@@ -14,6 +14,8 @@ import static com.techelevator.application.VendingMachine.itemsList;
  */
 public class UserInput {
     private static Scanner scanner = new Scanner(System.in);
+    BigDecimal cashAmount = new BigDecimal(0.0);
+
 
     public String getHomeScreenOption() {
         System.out.println("What would you like to do?");
@@ -64,33 +66,34 @@ public class UserInput {
         }
     }
 
-    public BigDecimal cashAmount = new BigDecimal(0.0);
-    String enteredMoney = "0.00";
+
 
     public String getMoney() {
+
         while (true) {
+            try {
             System.out.print("Please enter cash ($1, $5, $10, $20 accepted): ");
-            enteredMoney = scanner.nextLine();
+            String enteredMoney = scanner.nextLine();
             BigDecimal eM = new BigDecimal(enteredMoney);
             cashAmount = cashAmount.add(eM);
+        } catch (NumberFormatException e) {
+                System.out.println("Invalid Entry");
+            }
             System.out.print("Would you like to add anything else? (Y/N): ");
             String response = scanner.nextLine().toLowerCase();
             if (response.equals("y")) {
                 continue;
             } else {
-
                 return String.valueOf(cashAmount);
             }
         }
     }
 
-    String selection;
-    String message;
-    int quantity;
 
     public String selectItem() {
+       String message = "";
         System.out.print("Please select an item from above: ");
-        selection = scanner.nextLine().toUpperCase();
+        String selection = scanner.nextLine().toUpperCase();
 
         for (Items items : itemsList) {
             while (selection.equals(items.getSlotIdentifier())) {
@@ -99,38 +102,33 @@ public class UserInput {
                 } else if (items.getPrice().compareTo(cashAmount) == 1) {
                     selection = "Not enough funds";
                 } else {
-<<<<<<< HEAD
-                    selection = (itemsList.get(i).getName());
-=======
                     selection = items.getName();
                     cashAmount = cashAmount.subtract(items.getPrice());
                     message = items.getMessage();
-                    quantity = items.getQuantity();
+                    int quantity = items.getQuantity();
                     quantity--;
                     items.setQuantity(quantity);
->>>>>>> lydia
+
                 }
             }
         }
-        return message + "!  You have selected " + selection + ", your remaining money is " + cashAmount;
+        return selection + " | " + message;
     }
 
-    public void returnChange() {
-
-        double dblValue = cashAmount.doubleValue();
-        double[] change = new double[]{(1.00), (0.25), (0.10), (0.05)};
+    public String returnChange() {
+        BigDecimal startingAmount = cashAmount;
+        int cents = cashAmount.multiply(new BigDecimal("100")).intValue();
+       // double dblValue = cashAmount.doubleValue();
+        int[] change = new int[]{100, 25, 10, 5};
         String[] currency = new String[]{"Dollars", "Quarters", "Dimes", "Nickles"};
         for (int i = 0; i < change.length; i++) {
-            if (dblValue > 0) {
-                int counter;
-
-                counter = (int) ((int) dblValue / change[i]);
-                dblValue -= (double) (change[i] * counter);
-
+               int counter =  (cents / change[i]);
+                cents =  (cents % change[i]);
 
                 System.out.println("Your Change is: " + counter + " " + currency[i]);
+                cashAmount = BigDecimal.valueOf(0);
             }
+            return startingAmount + "  " + cashAmount;
         }
 
     }
-}

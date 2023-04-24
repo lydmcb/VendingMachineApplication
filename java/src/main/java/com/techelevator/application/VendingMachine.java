@@ -10,9 +10,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class VendingMachine {
@@ -28,9 +28,6 @@ public class VendingMachine {
         userOutput = new UserOutput();
         itemsList = new ArrayList<>();
         logger = new Logger("audit.txt");
-
-
-
     }
 
     public void run() {
@@ -54,34 +51,34 @@ public class VendingMachine {
         }
     }
 
-    BigDecimal money = new BigDecimal(0.0);
-    String selectedItem;
-    String change;
+
     public void makePurchase() {
         while (true) {
             String choice = userInput.getPurchase();
             if (choice.equals("feed")) {
                 String moneyToSpend = userInput.getMoney();
-                money = new BigDecimal(moneyToSpend);
-                logger.write(LocalDateTime.now() + "Money Fed " + money + money);
+                BigDecimal money = new BigDecimal(moneyToSpend);
+                logger.write(LocalDateTime.now() + "  " + "MONEY FED: " + money + "\n");
             } else if (choice.equals("select")) {
-                //select item
+
                 userOutput.displayItemList();
-                selectedItem = userInput.selectItem();
-                userOutput.displayMessage(selectedItem);
-                logger.write(LocalDateTime.now() + selectedItem );
+                String selectedItem = userInput.selectItem();
+                userOutput.displayMessage("You have chosen " + selectedItem);
+                String[] item = selectedItem.split("|");
+                logger.write(LocalDateTime.now() + "   " + item[0] + "\n");
             } else if (choice.equals("finish")) {
-                // finish
-                userInput.returnChange();
-                logger.write(LocalDateTime.now() + change );  //loggers don't work the as they should
+
+                String change = userInput.returnChange();
+                logger.write(LocalDateTime.now() + "  " + "CHANGE GIVEN" + "   " + change + "" + "\n");
                 break;
             }
         }
     }
 
+
     public void readInFromFile() {
         File file = new File("catering1.csv");
-        logger.write(LocalDateTime.now() + " - reading in the file");
+        logger.write(LocalDateTime.now() + "   -- reading in the file" + "\n");
 
         try (Scanner fileScanner = new Scanner(file)) {
             while (fileScanner.hasNextLine()) {
@@ -113,8 +110,7 @@ public class VendingMachine {
         }
 
     }
-    
-            public static void getItemsList (List < Items > itemsList) {
-                VendingMachine.itemsList = itemsList;
-            }
-        }
+}
+
+
+
