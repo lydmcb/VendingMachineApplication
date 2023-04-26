@@ -118,7 +118,6 @@ public class UserInput {
     public String returnChange() {
         BigDecimal startingAmount = cashAmount;
         int cents = cashAmount.multiply(new BigDecimal("100")).intValue();
-       // double dblValue = cashAmount.doubleValue();
         int[] change = new int[]{100, 25, 10, 5};
         String[] currency = new String[]{"Dollars", "Quarters", "Dimes", "Nickles"};
         for (int i = 0; i < change.length; i++) {
